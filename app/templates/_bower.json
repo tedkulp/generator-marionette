@@ -1,0 +1,17 @@
+{
+  "name": "package",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "latest",
+    "requirejs": "latest",
+    "require-jade": "latest",
+    "handlebars": "latest",
+    "marionette": "latest",
+    "moment": "latest",
+    "backbone-relational": "latest",
+    "backbone-pageable": "latest",
+    "backgrid": "latest",
+    "underscore.string": "latest",
+    "modernizr": "latest"
+  }
+}
