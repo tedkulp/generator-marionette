@@ -23,6 +23,71 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+        watch: {
+            coffee: {
+                files: ['scripts/{,*/}*.coffee'],
+                tasks: ['coffee:dist']
+            },
+            coffeeTest: {
+                files: ['test/spec/{,*/}*.coffee'],
+                tasks: ['coffee:test']
+            },
+            compass: {
+                files: ['styles/{,*/}*.{scss,sass}'],
+                tasks: ['compass:server']
+            },
+            livereload: {
+                files: [
+                    '{,*/}*.html',
+                    '{.tmp,}/styles/{,*/}*.css',
+                    '{.tmp,}/scripts/{,*/}*.js',
+                    'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                ],
+                tasks: ['livereload']
+            }
+        },
+        connect: {
+            options: {
+                port: 8888,
+                // change this to '0.0.0.0' to access the server from outside
+                hostname: 'localhost'
+            },
+            livereload: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            lrSnippet,
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, '')
+                        ];
+                    }
+                }
+            },
+            test: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, 'test')
+                        ];
+                    }
+                }
+            },
+            dist: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            mountFolder(connect, 'dist')
+                        ];
+                    }
+                }
+            }
+        },
+        open: {
+            server: {
+                path: 'http://localhost:<%= connect.options.port %>'
+            }
+        },
         clean: {
             dist: {
                 files: [{
@@ -42,7 +107,7 @@ module.exports = function (grunt) {
                     name: 'app',
                     baseUrl: '.tmp/scripts',
                     mainConfigFile: 'scripts/config.js',
-                    out: 'build/scripts/app.js',
+                    out: 'build/scripts/config.js',
                     removeCombined: false
                 }
             }
@@ -88,7 +153,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     dest: 'build/scripts/<%= bowerDirectory %>',
-                    cwd: '<%= bowerDirectory %>',
+                    cwd: 'scripts/<%= bowerDirectory %>',
                     src: [
                         '**/*',
                     ]
@@ -98,10 +163,59 @@ module.exports = function (grunt) {
         symlink: {
             js: {
                 dest: '.tmp/scripts/<%= bowerDirectory %>',
-                src: '<%= bowerDirectory %>',
+                src: 'scripts/<%= bowerDirectory %>',
                 options: {type: 'dir'}
             }
         },
+        concurrent: {
+            server: [
+                'compass:server'
+            ],
+            test: [
+                'compass'
+            ],
+            dist: [
+                'compass:dist',
+                'imagemin',
+                'svgmin',
+                'htmlmin'
+            ]
+        },
+        compass: {
+            options: {
+                sassDir: 'styles',
+                cssDir: '.tmp/styles',
+                imagesDir: 'images',
+                javascriptsDir: 'scripts',
+                fontsDir: 'styles/fonts',
+                importPath: 'scripts/<%= bowerDirectory %>',
+                httpImagesPath: '/images',
+                httpGeneratedImagesPath: '/images',
+                relativeAssets: false
+            },
+            dist: {},
+            server: {
+                options: {
+                    debugInfo: true
+                }
+            }
+        },
+    });
+
+    grunt.registerTask('server', function (target) {
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+        }
+
+        grunt.task.run([
+            'clean:server',
+            'coffee',
+            'concurrent:server',
+            'livereload-start',
+            'connect:livereload',
+            // 'open',
+            'watch'
+        ]);
     });
 
     grunt.registerTask('build', [
