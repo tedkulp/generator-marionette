@@ -6,6 +6,7 @@
     "jquery": "latest",
     "requirejs": "latest",
     "require-jade": "latest",
+    "requirejs-text": "latest",
     "handlebars": "latest",
     "marionette": "latest",
     "moment": "latest",

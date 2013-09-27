@@ -12,6 +12,7 @@ require.config({
     backgrid              : '<%= bowerDirectory %>/backgrid/lib/backgrid',
     // bootstrap             : '<%= bowerDirectory %>/twitter/bootstrap',
     jade                  : '<%= bowerDirectory %>/require-jade/jade',
+    text                  : '<%= bowerDirectory %>/requirejs-text/text',
     moment                : '<%= bowerDirectory %>/moment/moment',
     app                   : 'app',
     collections           : 'collections',

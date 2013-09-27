@@ -125,6 +125,16 @@ module.exports = function (grunt) {
                 }]
             },
         },
+        cssmin: {
+            dist: {
+                files: {
+                    'build/styles/main.css': [
+                        '.tmp/styles/{,*/}*.css',
+                        'styles/{,*/}*.css'
+                    ]
+                }
+            }
+        },
         copy: {
             js: {
                 files: [{
@@ -155,7 +165,8 @@ module.exports = function (grunt) {
                     dest: 'build/scripts/<%= bowerDirectory %>',
                     cwd: 'scripts/<%= bowerDirectory %>',
                     src: [
-                        '**/*',
+                        'modernizr/modernizr.js',
+                        'requirejs/require.js'
                     ]
                 }]
             }
@@ -176,9 +187,9 @@ module.exports = function (grunt) {
             ],
             dist: [
                 'compass:dist',
-                'imagemin',
-                'svgmin',
-                'htmlmin'
+                // 'imagemin',
+                // 'svgmin',
+                // 'htmlmin'
             ]
         },
         compass: {
@@ -223,7 +234,9 @@ module.exports = function (grunt) {
         'coffee:dist',
         'copy:js',
         'symlink:js',
+        'concurrent:dist',
         'requirejs:dist',
+        'cssmin',
         'copy:dist'
     ]);
 };
