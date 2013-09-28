@@ -55,6 +55,11 @@ MarionetteGenerator.prototype.gruntfile = function gruntfile() {
   this.template('Gruntfile.js', 'Gruntfile.js');
 };
 
+MarionetteGenerator.prototype.git = function git() {
+  this.template('gitignore', '.gitignore');
+  this.copy('gitattributes', '.gitattributes');
+};
+
 MarionetteGenerator.prototype.mainStylesheet = function mainStylesheet() {
   this.write('styles/main.scss', '@import \'sass-bootstrap/lib/bootstrap\';\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 400px;\n}');
 };
