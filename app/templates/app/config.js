@@ -10,7 +10,7 @@ require.config({
     'backbone.pageable'   : '<%= bowerDirectory %>/backbone-pageable/lib/backbone-pageable',
     marionette            : '<%= bowerDirectory %>/marionette/lib/core/amd/backbone.marionette',
     backgrid              : '<%= bowerDirectory %>/backgrid/lib/backgrid',
-    // bootstrap             : '<%= bowerDirectory %>/twitter/bootstrap',
+    bootstrap             : '<%= bowerDirectory %>/sass-bootstrap/dist/js/bootstrap',
     jade                  : '<%= bowerDirectory %>/require-jade/jade',
     text                  : '<%= bowerDirectory %>/requirejs-text/text',
     moment                : '<%= bowerDirectory %>/moment/moment',
@@ -29,9 +29,9 @@ require.config({
       deps: ['underscore'],
       exports: '_.string'
     },
-    // bootstrap: {
-    //   deps: ['jquery']
-    // },
+    bootstrap: {
+      deps: ['jquery']
+    },
     backbone: {
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
@@ -61,7 +61,7 @@ require.config({
   },
   deps: [
     // 'jquery',
-    // 'bootstrap',
+    'bootstrap',
     // 'underscore',
     // 'moment',
     'main'
