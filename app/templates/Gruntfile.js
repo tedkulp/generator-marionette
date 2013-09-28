@@ -25,23 +25,23 @@ module.exports = function (grunt) {
         yeoman: yeomanConfig,
         watch: {
             coffee: {
-                files: ['scripts/{,*/}*.coffee'],
+                files: ['scripts/{,**/}*.coffee'],
                 tasks: ['coffee:dist']
             },
             coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
+                files: ['test/spec/{,**/}*.coffee'],
                 tasks: ['coffee:test']
             },
             compass: {
-                files: ['styles/{,*/}*.{scss,sass}'],
+                files: ['styles/{,**/}*.{scss,sass}'],
                 tasks: ['compass:server']
             },
             livereload: {
                 files: [
-                    '{,*/}*.html',
-                    '{.tmp,}/styles/{,*/}*.css',
-                    '{.tmp,}/scripts/{,*/}*.js',
-                    'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '{,**/}*.html',
+                    '{.tmp,}/styles/{,**/}*.css',
+                    '{.tmp,}/scripts/{,**/}*.js',
+                    'images/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ],
                 tasks: ['livereload']
             }
@@ -94,8 +94,8 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        'build/*',
-                        '!build/.git*'
+                        'dist/*',
+                        '!dist/.git*'
                     ]
                 }]
             },
@@ -107,7 +107,7 @@ module.exports = function (grunt) {
                     name: 'app',
                     baseUrl: '.tmp/scripts',
                     mainConfigFile: 'scripts/config.js',
-                    out: 'build/scripts/config.js',
+                    out: 'dist/scripts/config.js',
                     removeCombined: false
                 }
             }
@@ -119,7 +119,7 @@ module.exports = function (grunt) {
                     // require them into your main .coffee file
                     expand: true,
                     cwd: 'scripts',
-                    src: '{,*/}*.coffee',
+                    src: '{,**/}*.coffee',
                     dest: '.tmp/scripts',
                     ext: '.js'
                 }]
@@ -128,9 +128,9 @@ module.exports = function (grunt) {
         cssmin: {
             dist: {
                 files: {
-                    'build/styles/main.css': [
-                        '.tmp/styles/{,*/}*.css',
-                        'styles/{,*/}*.css'
+                    'dist/styles/main.css': [
+                        '.tmp/styles/{,**/}*.css',
+                        'styles/{,**/}*.css'
                     ]
                 }
             }
@@ -143,7 +143,7 @@ module.exports = function (grunt) {
                     cwd: 'scripts',
                     dest: '.tmp/scripts',
                     src: [
-                        '{,*/}*.js',
+                        '{,**/}*.js',
                     ]
                 }]
             },
@@ -151,18 +151,18 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    dest: 'build',
+                    dest: 'dist',
                     src: [
                         '*.{ico,txt,html}',
                         '.htaccess',
-                        'images/{,*/}*.{webp,gif}',
+                        'images/{,**/}*.{webp,gif}',
                         'styles/fonts/*',
                     ]
                 },
                 {
                     expand: true,
                     dot: true,
-                    dest: 'build/scripts/<%= bowerDirectory %>',
+                    dest: 'dist/scripts/<%= bowerDirectory %>',
                     cwd: 'scripts/<%= bowerDirectory %>',
                     src: [
                         'modernizr/modernizr.js',
