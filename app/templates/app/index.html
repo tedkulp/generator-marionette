@@ -23,6 +23,21 @@
     </head>
 
     <body>
+        <div id="backbone-container" class="container"></div>
+
+        <!-- Setup a place to put modals -->
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true"> &times;</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body" id="page-modal">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/config" src="scripts/<%= bowerDirectory %>/requirejs/require.js"></script>
