@@ -4,6 +4,7 @@ var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
+var modRewrite = require('connect-modrewrite');
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -56,6 +57,9 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
+                            modRewrite([
+                              '!\\.html|\\.js|\\.css|\\.png$ /index.html [L]'
+                            ]),
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, '')
